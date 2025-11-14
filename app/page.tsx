@@ -1,5 +1,7 @@
 import React from "react";
 import { FaMapMarkedAlt, FaSearch } from "react-icons/fa";
+import HourlyForecast from "@/public/components/HourlyForecast";
+import img from "../public/media/weather.png";
 
 const VideoBackground = () => {
   return (
@@ -43,9 +45,13 @@ const VideoBackground = () => {
       <div className="mt-4 text-center">
         <h2 className="text-xl font-semibold">Madrid</h2>
         {/* Weather Icon */}
+        <img src={img.src} alt="Weather icon" className="mx-auto h-40"/>
         <p className="text-lg font-semibold">2 °C</p>
         <p className="text-sm capitalize font-semibold"> Cloudy </p>
        </div>
+
+       {/*Hourly Forecast*/}
+       <HourlyForecast/>
 
         </div>
       </div>
