@@ -10,22 +10,50 @@ import {useState, useEffect} from "react";
 const VideoBackground = () => {
 
    const [weatherData, setWeatherData] = useState<any>(null);
-   const [city, setCity] = useState('MADRID');
+   const [city, setCity] = useState('');
+   const [error, setError] = useState("");
 
   const api_key = "958405fb95e440b7bdb132400251711";
-  const api_url = "http://api.weatherapi.com/v1/forecast.json";
+  const api_url = "https://api.weatherapi.com/v1/forecast.json";
 
   const fetchData = async () => {
+    if (!city) {
+      console.log('City is empty, skipping fetch');
+      return;
+    }
     try {
       const url = `${api_url}?key=${api_key}&q=${city}&days=1`;
       console.log('Fetching weather data from URL:', url);
       const response = await axios.get(url);
-      console.log('API Response:', response.data);
+      console.log('API Response:', response.data.forecast.forecastday[0].hour);
       setWeatherData(response.data);
+      setError("");
+
       }
 
       catch(err){
-        console.error("There was an error or the city was not found:", err);
+        console.error('Fetch error:', err);
+        setError("There was an error or the city was not found.");
+        setWeatherData(null);
+      }
+    };
+
+    const getCurrentLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            console.log('Got location:', latitude, longitude);
+            setCity(`${latitude},${longitude}`);
+            fetchData();
+          },
+          (error) => {
+            console.error('Geolocation error:', error);
+            setError(error.message);
+          }
+        );
+      } else {
+        setError('Geolocation is not supported');
       }
     };
 
@@ -36,10 +64,12 @@ const VideoBackground = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (city) fetchData();
+  }, [city]);
 
   console.log('Rendering with weatherData:', weatherData);
+  console.log('Checking current hourly data access:', weatherData?.forecastday?.forecastday?.[0]?.hour);
+  console.log('Corrected path for hourly data:', weatherData?.forecast?.forecastday?.[0]?.hour);
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -75,12 +105,15 @@ const VideoBackground = () => {
           </div>
 
           {/* current location button */}
-          <button className="px-4 py-2 bg-blue-300 text-white ml-2 rounded hover:bg-blue-600">
+          <button onClick={getCurrentLocation}
+          className="px-4 py-2 bg-blue-300 text-white ml-2 rounded hover:bg-blue-600">
             <FaMapMarkedAlt className="w-5 h-5"/>
           </button>
 
         </div>
-       
+       {/* display the error message */}
+      { error && <p className="text-red-500 text-center mt-4">{error}</p>}
+
       {/* Weather Data Display */}
       {weatherData?.location && (
         <div className="mt-4 text-center">
@@ -93,7 +126,7 @@ const VideoBackground = () => {
       )}
 
        {/*Hourly Forecast*/}
-       <HourlyForecast/>
+       <HourlyForecast hourlyData = {weatherData?.forecast?.forecastday?.[0]?.hour}/>
 
         </div>
       </div>

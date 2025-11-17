@@ -1,5 +1,4 @@
 "use client"
-
 import React,{useRef} from 'react'
 import img from "../media/weather.png"
 import "./HourlyForecast.css"
@@ -7,8 +6,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 
 
 
-function HourlyForecast() {
-    console.log('HourlyForecast component rendered');
+function HourlyForecast({hourlyData}) {
+    console.log('HourlyForecast component rendered with hourlyData:', hourlyData);
 
     const scrollRef = useRef(null); //scroll bar reference
 
@@ -30,56 +29,25 @@ function HourlyForecast() {
 
     return(
         <div className='relative mt-6'>
-          <div ref={scrollRef} className=' flex gap-4 mx-10 py-2 overflow-auto scrollbar-hide' style={{scrollBehavior:'smooth'}}>
+          <div ref={scrollRef} 
+          className=' flex gap-4 mx-10 py-2 overflow-auto scrollbar-hide' 
+          style={{scrollBehavior:'smooth'}}>
 
-            {/*One Hour*/}
-            <div className='flex flex-col items-center shadow-lg bg-blue-400 py-2 rounded px-4'>
-                <p>14:00</p>
-                <img src={img.src} 
-                    alt="weather icon" 
-                    className='w-10 mx-auto'/>
-                <p>2 °C</p>
-            </div>
+            {
+                hourlyData && hourlyData.map((hour, index) => {
+                    return (
+                        <div key={index} className='flex flex-col items-center shadow-lg bg-blue-400 py-2 rounded px-4'>
+                            <p>{new Date(hour.time).getHours()}:00</p>
+                             <img src={hour.condition.icon}
+                                 alt="weather icon"
+                                 className='w-10 mx-auto'/>
+                             <p>{hour.temp_c} °C</p>
+                        </div>
+                    );
+                })
+            }
 
-            <div className='flex flex-col items-center shadow-lg bg-blue-400 py-2 rounded px-4'>
-                <p>14:00</p>
-                <img src={img.src} 
-                    alt="weather icon" 
-                    className='w-10 mx-auto'/>
-                <p>2 °C</p>
-            </div>
 
-             <div className='flex flex-col items-center shadow-lg bg-blue-400 py-2 rounded px-4'>
-                <p>14:00</p>
-                <img src={img.src} 
-                    alt="weather icon" 
-                    className='w-10 mx-auto'/>
-                <p>2 °C</p>
-            </div>
-            
-            <div className='flex flex-col items-center shadow-lg bg-blue-400 py-2 rounded px-4'>
-                <p>14:00</p>
-                <img src={img.src} 
-                    alt="weather icon" 
-                    className='w-10 mx-auto'/>
-                <p>2 °C</p>
-            </div>
-
-             <div className='flex flex-col items-center shadow-lg bg-blue-400 py-2 rounded px-4'>
-                <p>14:00</p>
-                <img src={img.src} 
-                    alt="weather icon" 
-                    className='w-10 mx-auto'/>
-                <p>2 °C</p>
-            </div>
-            
-            <div className='flex flex-col items-center shadow-lg bg-blue-400 py-2 rounded px-4'>
-                <p>14:00</p>
-                <img src={img.src} 
-                    alt="weather icon" 
-                    className='w-10 mx-auto'/>
-                <p>2 °C</p>
-            </div>
 
           </div>
           
