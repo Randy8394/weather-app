@@ -2,7 +2,6 @@
 
 import type React from "react";
 import { FaMapMarkedAlt, FaSearch } from "react-icons/fa";
-import HourlyForecast from "@/public/components/HourlyForecast";
 import img from "../public/media/weather.png";
 import axios from "axios";
 import {useState, useEffect} from "react";
@@ -12,6 +11,7 @@ const VideoBackground = () => {
    const [weatherData, setWeatherData] = useState<any>(null);
    const [city, setCity] = useState('');
    const [error, setError] = useState("");
+   const [isCelsius, setIsCelsius] = useState(true);
 
   const api_key = "958405fb95e440b7bdb132400251711";
   const api_url = "https://api.weatherapi.com/v1/forecast.json";
@@ -120,18 +120,19 @@ const VideoBackground = () => {
           <h2 className="text-xl font-semibold">{weatherData.location.name}</h2>
           {/* Weather Icon */}
           <img src={weatherData.current.condition.icon} alt="Weather icon" className="mx-auto h-40"/>
-          <p className="text-lg font-semibold">{weatherData.current.temp_c}°C</p>
+          <p className="text-lg font-semibold">{isCelsius ? weatherData.current.temp_c : weatherData.current.temp_f}°{isCelsius ? 'C' : 'F'}</p>
+          <p className="text-sm">Humidity: {weatherData.current.humidity}%</p>
+          <p className="text-sm">Wind Speed: {weatherData.current.wind_kph} km/h</p>
+          <button onClick={() => setIsCelsius(!isCelsius)} className="mt-2 mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            °{isCelsius ? 'F' : 'C'}
+          </button>
           <p className="text-sm capitalize font-semibold">{weatherData.current.condition.text}</p>
         </div>
       )}
-
-       {/*Hourly Forecast*/}
-       <HourlyForecast hourlyData = {weatherData?.forecast?.forecastday?.[0]?.hour}/>
-
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default VideoBackground;
