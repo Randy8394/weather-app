@@ -100,7 +100,7 @@ const VideoBackground = () => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               onKeyUp={handleKeyPress}
-              className="pl-2 border-none focus:outline-none"
+              className="pl-2 border-none focus:outline-none text-grey-700"
             />
           </div>
 
@@ -117,16 +117,16 @@ const VideoBackground = () => {
       {/* Weather Data Display */}
       {weatherData?.location && (
         <div className="mt-4 text-center">
-          <h2 className="text-xl font-semibold">{weatherData.location.name}</h2>
+          <h2 className="text-xl font-semibold text-black">{weatherData.location.name}</h2>
           {/* Weather Icon */}
           <img src={weatherData.current.condition.icon} alt="Weather icon" className="mx-auto h-40"/>
-          <p className="text-lg font-semibold">{isCelsius ? weatherData.current.temp_c : weatherData.current.temp_f}°{isCelsius ? 'C' : 'F'}</p>
-          <p className="text-sm">Humidity: {weatherData.current.humidity}%</p>
-          <p className="text-sm">Wind Speed: {weatherData.current.wind_kph} km/h</p>
+          <p className="text-lg font-semibold text-black">{isCelsius ? weatherData.current.temp_c : weatherData.current.temp_f}°{isCelsius ? 'C' : 'F'}</p>
+          <p className="text-sm text-black">Humidity: {weatherData.current.humidity}%</p>
+          <p className="text-sm text-black">Wind Speed: {weatherData.current.wind_kph} km/h</p>
           <button onClick={() => setIsCelsius(!isCelsius)} className="mt-2 mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            °{isCelsius ? 'F' : 'C'}
+            Chnange to °{isCelsius ? 'F' : 'C'}
           </button>
-          <p className="text-sm capitalize font-semibold">{weatherData.current.condition.text}</p>
+          <p className="text-sm capitalize font-semibold text-black">{weatherData.current.condition.text}</p>
         </div>
       )}
         </div>
