@@ -2,17 +2,15 @@
 
 import type React from "react";
 import { FaMapMarkedAlt, FaSearch } from "react-icons/fa";
-import img from "../public/media/weather.png";
 import axios from "axios";
 import {useState, useEffect} from "react";
 
-const VideoBackground = () => {
+const Background = () => {
 
     const [weatherData, setWeatherData] = useState<any>(null);
     const [city, setCity] = useState('');
     const [error, setError] = useState("");
     const [isCelsius, setIsCelsius] = useState(true);
-    const [videoError, setVideoError] = useState(false);
 
   const api_key = "958405fb95e440b7bdb132400251711";
   const api_url = "https://api.weatherapi.com/v1/forecast.json";
@@ -73,20 +71,7 @@ const VideoBackground = () => {
   console.log('Corrected path for hourly data:', weatherData?.forecast?.forecastday?.[0]?.hour);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden" style={videoError ? { backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}>
-      {/* Video Background */}
-      {!videoError && (
-        <video
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          src="/media/bg.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          onError={() => setVideoError(true)}
-        />
-      )}
-
+    <div className="relative w-full h-screen overflow-hidden" style={{ backgroundImage: `url('/media/bg.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       {/* Overlay (optional) */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
 
@@ -139,4 +124,4 @@ const VideoBackground = () => {
   );
 }
 
-export default VideoBackground;
+export default Background;
