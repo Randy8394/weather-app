@@ -18,21 +18,17 @@ const Background = () => {
 
   const fetchData = async () => {
     if (!city) {
-      console.log('City is empty, skipping fetch');
       return;
     }
     try {
       const url = `${api_url}?key=${api_key}&q=${city}&days=1`;
-      console.log('Fetching weather data from URL:', url);
       const response = await axios.get(url);
-      console.log('API Response:', response.data.forecast.forecastday[0].hour);
       setWeatherData(response.data);
       setError("");
 
       }
 
       catch(err){
-        console.error('Fetch error:', err);
         setError("There was an error or the city was not found.");
         setWeatherData(null);
       }
@@ -43,12 +39,10 @@ const Background = () => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log('Got location:', latitude, longitude);
             setCity(`${latitude},${longitude}`);
             fetchData();
           },
           (error) => {
-            console.error('Geolocation error:', error);
             setError(error.message);
           }
         );
@@ -67,9 +61,6 @@ const Background = () => {
     if (city) fetchData();
   }, [city]);
 
-  console.log('Rendering with weatherData:', weatherData);
-  console.log('Checking current hourly data access:', weatherData?.forecastday?.forecastday?.[0]?.hour);
-  console.log('Corrected path for hourly data:', weatherData?.forecast?.forecastday?.[0]?.hour);
   
   return (
     <div style={{backgroundImage: `url(${bg.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}} className="relative w-full h-screen overflow-hidden">
