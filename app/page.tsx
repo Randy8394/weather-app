@@ -4,6 +4,7 @@ import type React from "react";
 import { FaMapMarkedAlt, FaSearch } from "react-icons/fa";
 import axios from "axios";
 import {useState, useEffect} from "react";
+import bg from './bg.jpg';
 
 const Background = () => {
 
@@ -69,9 +70,9 @@ const Background = () => {
   console.log('Rendering with weatherData:', weatherData);
   console.log('Checking current hourly data access:', weatherData?.forecastday?.forecastday?.[0]?.hour);
   console.log('Corrected path for hourly data:', weatherData?.forecast?.forecastday?.[0]?.hour);
-
+  
   return (
-    <div className="bg-weather relative w-full h-screen overflow-hidden">
+    <div style={{backgroundImage: `url(${bg.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}} className="relative w-full h-screen overflow-hidden">
       {/* Overlay (optional) */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
 

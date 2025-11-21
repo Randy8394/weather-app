@@ -25,8 +25,3 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.bg-weather {
-  background-image: url('/media/bg.jpg');
-  background-size: cover;
-  background-position: center;
-}
