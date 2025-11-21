@@ -104,7 +104,7 @@ const VideoBackground = () => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               onKeyUp={handleKeyPress}
-              className="pl-2 border-none focus:outline-none text-black placeholder:text-black"
+              className="pl-2 border-none focus:outline-none text-black placeholder:text-grey-500"
             />
           </div>
 
