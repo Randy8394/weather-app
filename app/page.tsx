@@ -71,7 +71,7 @@ const Background = () => {
   console.log('Corrected path for hourly data:', weatherData?.forecast?.forecastday?.[0]?.hour);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden" style={{ backgroundImage: `url('/media/bg.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="bg-weather relative w-full h-screen overflow-hidden">
       {/* Overlay (optional) */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
 
