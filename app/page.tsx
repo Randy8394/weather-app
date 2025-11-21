@@ -93,14 +93,14 @@ const VideoBackground = () => {
            <div className="flex">
             {/*Input Field & search button*/}
             <div className="flex border rounded items-center px-2 py-2 w-full">
-            <FaSearch className="h-5 w-5"/>
+            <FaSearch className="h-5 w-5 text-black"/>
             <input
               type="text"
               placeholder="Enter City Name"
               value={city}
               onChange={(e) => setCity(e.target.value)}
               onKeyUp={handleKeyPress}
-              className="pl-2 border-none focus:outline-none text-grey-700"
+              className="pl-2 border-none focus:outline-none text-black placeholder:text-black"
             />
           </div>
 
@@ -124,7 +124,7 @@ const VideoBackground = () => {
           <p className="text-sm text-black">Humidity: {weatherData.current.humidity}%</p>
           <p className="text-sm text-black">Wind Speed: {weatherData.current.wind_kph} km/h</p>
           <button onClick={() => setIsCelsius(!isCelsius)} className="mt-2 mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Chnange to °{isCelsius ? 'F' : 'C'}
+            Change to °{isCelsius ? 'F' : 'C'}
           </button>
           <p className="text-sm capitalize font-semibold text-black">{weatherData.current.condition.text}</p>
         </div>
