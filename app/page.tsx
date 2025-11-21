@@ -12,7 +12,7 @@ const Background = () => {
     const [error, setError] = useState("");
     const [isCelsius, setIsCelsius] = useState(true);
 
-  const api_key = "958405fb95e440b7bdb132400251711";
+  const api_key = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
   const api_url = "https://api.weatherapi.com/v1/forecast.json";
 
   const fetchData = async () => {
